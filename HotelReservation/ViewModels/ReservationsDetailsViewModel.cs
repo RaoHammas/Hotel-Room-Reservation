@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using HotelReservation.Commands;
 using HotelReservation.Models;
+using HotelReservation.Services;
 using HotelReservation.Stores;
 
 namespace HotelReservation.ViewModels
@@ -24,8 +25,21 @@ namespace HotelReservation.ViewModels
             _hotel = hotel;
             _navigationStore = navigationStore;
 
-            NewReservationCommand = new NavigateCommand(navigationStore, CreateViewModel);
+
+            NewReservationCommand = new NavigateCommand(new NavigateService(navigationStore, CreateViewModel));
             Reservations = new List<ReservationViewModel>();
+
+            GetAllReservations();
+        }
+
+        private void GetAllReservations()
+        {
+            var reservations = _hotel.GetReservations("");
+            foreach (var reservation in reservations)
+            {
+                var newReservation = new ReservationViewModel(reservation);
+                Reservations.Add(newReservation);
+            }
         }
 
         private ViewModelBase CreateViewModel()

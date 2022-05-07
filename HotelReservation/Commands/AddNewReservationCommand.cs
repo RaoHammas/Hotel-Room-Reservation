@@ -2,6 +2,7 @@
 using System.Windows;
 using HotelReservation.Exceptions;
 using HotelReservation.Models;
+using HotelReservation.Services;
 using HotelReservation.ViewModels;
 
 namespace HotelReservation.Commands
@@ -10,11 +11,14 @@ namespace HotelReservation.Commands
     {
         private readonly NewReservationViewModel _newReservationViewModel;
         private readonly Hotel _hotel;
+        private readonly NavigateService _navigateService;
 
-        public AddNewReservationCommand(NewReservationViewModel newReservationViewModel, Hotel hotel)
+        public AddNewReservationCommand(NewReservationViewModel newReservationViewModel, Hotel hotel,
+            NavigateService navigateService)
         {
             _newReservationViewModel = newReservationViewModel;
             _hotel = hotel;
+            _navigateService = navigateService;
 
             _newReservationViewModel.PropertyChanged += NewReservationViewModelOnPropertyChanged;
         }
@@ -49,7 +53,8 @@ namespace HotelReservation.Commands
                 EndDateTime = _newReservationViewModel.EndDateTime,
                 RoomId = new RoomID
                 {
-                    FloorNumber = _newReservationViewModel.RoomNumber, RoomNumber = _newReservationViewModel.RoomNumber
+                    FloorNumber = _newReservationViewModel.FloorNumber,
+                    RoomNumber = _newReservationViewModel.RoomNumber,
                 }
             };
 
@@ -58,6 +63,7 @@ namespace HotelReservation.Commands
                 _hotel.AddReservation(newReservation);
 
                 MessageBox.Show("Reservation is made successfully !");
+                _navigateService.Navigate();
             }
             catch (ReservationConflictException ex)
             {

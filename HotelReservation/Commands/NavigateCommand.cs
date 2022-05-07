@@ -1,4 +1,5 @@
 ﻿using System;
+using HotelReservation.Services;
 using HotelReservation.Stores;
 using HotelReservation.ViewModels;
 
@@ -6,18 +7,15 @@ namespace HotelReservation.Commands
 {
     public class NavigateCommand : CommandBase
     {
-        private readonly NavigationStore _navigationStore;
-        private readonly Func<ViewModelBase> _createViewModel;
+        private readonly NavigateService _navigateService;
 
-        public NavigateCommand(NavigationStore navigationStore, Func<ViewModelBase> createViewModel)
+        public NavigateCommand(NavigateService navigateService)
         {
-            _navigationStore = navigationStore;
-            _createViewModel = createViewModel;
+            _navigateService = navigateService;
         }
-
         public override void Execute(object parameter)
         {
-            _navigationStore.CurrentViewModel = _createViewModel();
+            _navigateService.Navigate();
         }
     }
 }

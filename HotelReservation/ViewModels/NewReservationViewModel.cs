@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using HotelReservation.Commands;
 using HotelReservation.Models;
+using HotelReservation.Services;
 using HotelReservation.Stores;
 
 namespace HotelReservation.ViewModels
@@ -10,6 +11,7 @@ namespace HotelReservation.ViewModels
     {
         private readonly Hotel _hotel;
         private readonly NavigationStore _navigationStore;
+     
         private string _userName;
         private DateTime _starDateTime;
         private DateTime _endDateTime;
@@ -78,11 +80,12 @@ namespace HotelReservation.ViewModels
         {
             _hotel = hotel;
             _navigationStore = navigationStore;
+       
             StarDateTime = DateTime.Now;
             EndDateTime = DateTime.Now;
 
-            AddReservationCommand = new AddNewReservationCommand(this, hotel);
-            CancelReservationCommand = new NavigateCommand(navigationStore, CreateViewModel);
+            AddReservationCommand = new AddNewReservationCommand(this, hotel, new NavigateService(navigationStore, CreateViewModel));
+            CancelReservationCommand = new NavigateCommand(new NavigateService(navigationStore, CreateViewModel));
         }
 
         private ViewModelBase CreateViewModel()
