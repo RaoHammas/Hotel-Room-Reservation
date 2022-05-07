@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using HotelReservation.Models;
+using HotelReservation.Stores;
 using HotelReservation.ViewModels;
 
 namespace HotelReservation
@@ -15,19 +10,25 @@ namespace HotelReservation
     /// </summary>
     public partial class App : Application
     {
-        public Hotel Hotel { get; set; }
+        private Hotel Hotel { get; }
+        private NavigationStore NavigationStore { get; }
+
         public App()
         {
+            NavigationStore = new NavigationStore();
             Hotel = new Hotel("Hotel Rao");
         }
+
         protected override void OnStartup(StartupEventArgs e)
         {
+            NavigationStore.CurrentViewModel = new ReservationsDetailsViewModel(Hotel, NavigationStore);
+
             MainWindow window = new MainWindow
             {
-                DataContext = new MainViewModel(Hotel)
+                DataContext = new MainViewModel(NavigationStore)
             };
             window.Show();
-            base.OnStartup(e); 
+            base.OnStartup(e);
         }
     }
 }

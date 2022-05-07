@@ -24,7 +24,7 @@
                 <DataGrid x:Name="DataGridReservations" Grid.Row="1" Margin="0 20 0 0"
                           AutoGenerateColumns="False" HorizontalGridLinesBrush="LightGray"
                           VerticalGridLinesBrush="LightGray"
-                          RowHeight="24"
+                          RowHeight="24" IsReadOnly="True"
                           ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Room Id#" Width="100" Binding="{Binding RoomId}" />

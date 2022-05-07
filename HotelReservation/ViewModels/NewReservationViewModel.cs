@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using HotelReservation.Commands;
 using HotelReservation.Models;
+using HotelReservation.Stores;
 
 namespace HotelReservation.ViewModels
 {
     public class NewReservationViewModel : ViewModelBase
     {
+        private readonly Hotel _hotel;
+        private readonly NavigationStore _navigationStore;
         private string _userName;
         private DateTime _starDateTime;
         private DateTime _endDateTime;
@@ -75,13 +74,20 @@ namespace HotelReservation.ViewModels
         #endregion
 
 
-        public NewReservationViewModel(Hotel hotel)
+        public NewReservationViewModel(Hotel hotel, NavigationStore navigationStore)
         {
+            _hotel = hotel;
+            _navigationStore = navigationStore;
             StarDateTime = DateTime.Now;
             EndDateTime = DateTime.Now;
-            
+
             AddReservationCommand = new AddNewReservationCommand(this, hotel);
-            CancelReservationCommand = new CancelNewReservationCommand();
+            CancelReservationCommand = new NavigateCommand(navigationStore, CreateViewModel);
+        }
+
+        private ViewModelBase CreateViewModel()
+        {
+            return new ReservationsDetailsViewModel(_hotel, _navigationStore);
         }
     } // end of class
 }
