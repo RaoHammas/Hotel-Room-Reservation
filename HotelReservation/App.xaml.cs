@@ -22,8 +22,10 @@ namespace HotelReservation
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow window = new MainWindow();
-            window.DataContext = new MainViewModel(Hotel);
+            MainWindow window = new MainWindow
+            {
+                DataContext = new MainViewModel(Hotel)
+            };
             window.Show();
             base.OnStartup(e); 
         }

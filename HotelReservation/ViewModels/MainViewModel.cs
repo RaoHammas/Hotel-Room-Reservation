@@ -12,7 +12,8 @@ namespace HotelReservation.ViewModels
         public ViewModelBase CurrentViewModel { get; set; }
         public MainViewModel(Hotel hotel)
         {
-            CurrentViewModel = new NewReservationViewModel(hotel);
+            //CurrentViewModel = new NewReservationViewModel(hotel);
+            CurrentViewModel = new ReservationsDetailsViewModel(hotel);
         }
 
     } //end of class

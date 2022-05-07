@@ -81,7 +81,7 @@ namespace HotelReservation.ViewModels
             EndDateTime = DateTime.Now;
             
             AddReservationCommand = new AddNewReservationCommand(this, hotel);
-            CancelReservationCommand = new RoutedCommand();
+            CancelReservationCommand = new CancelNewReservationCommand();
         }
     } // end of class
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using HotelReservation.Commands;
 using HotelReservation.Models;
 
 namespace HotelReservation.ViewModels
@@ -17,7 +18,7 @@ namespace HotelReservation.ViewModels
 
         public ReservationsDetailsViewModel(Hotel hotel)
         {
-            NewReservationCommand = new RoutedCommand();
+            NewReservationCommand = new NavigateCommand();
             Reservations = new List<ReservationViewModel>();
 
             Reservations.Add(new ReservationViewModel(new Reservation

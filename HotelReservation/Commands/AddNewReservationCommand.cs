@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,29 @@ namespace HotelReservation.Commands
         {
             _newReservationViewModel = newReservationViewModel;
             _hotel = hotel;
+
+            _newReservationViewModel.PropertyChanged += NewReservationViewModelOnPropertyChanged;
+        }
+
+        private void NewReservationViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_newReservationViewModel.UserName)
+                || e.PropertyName == nameof(_newReservationViewModel.FloorNumber)
+                || e.PropertyName == nameof(_newReservationViewModel.RoomNumber))
+            {
+                OnCanExecutedChanged();
+            }
+        }
+
+        public override bool CanExecute(object parameter)
+        {
+            if (string.IsNullOrEmpty(_newReservationViewModel.UserName) || _newReservationViewModel.RoomNumber < 1 ||
+                _newReservationViewModel.FloorNumber < 1)
+            {
+                return false;
+            }
+
+            return base.CanExecute(parameter);
         }
 
         public override void Execute(object parameter)
@@ -42,7 +66,7 @@ namespace HotelReservation.Commands
             }
             catch (ReservationConflictException ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("This room is already booked !");
             }
         }
     }

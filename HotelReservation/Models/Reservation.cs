@@ -24,15 +24,13 @@ namespace HotelReservation.Models
 
         public bool Conflicts(Reservation reservation)
         {
-            if (reservation.RoomId.Equals(RoomId))
+            if (reservation.RoomId.Equals(RoomId)
+                && reservation.StarDateTime >= StarDateTime
+                && reservation.StarDateTime <= EndDateTime)
             {
                 return true;
             }
 
-            if (reservation.StarDateTime < StarDateTime && reservation.EndDateTime > StarDateTime)
-            {
-                return true;
-            }
 
             return false;
         }

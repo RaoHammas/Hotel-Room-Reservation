@@ -10,6 +10,6 @@
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow"
         Title="Hotel Reservation System" Height="450" Width="800">
     <Grid>
-        <views:NewReservationView DataContext="{Binding CurrentViewModel}"/>
+        <views:ReservationsDetailsView DataContext="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>
