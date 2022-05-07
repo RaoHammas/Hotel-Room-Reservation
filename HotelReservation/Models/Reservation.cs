@@ -12,15 +12,14 @@ namespace HotelReservation.Models
         public string UserName { get; set; }
         public DateTime StarDateTime { get; set; }
         public DateTime EndDateTime { get; set; }
-        public TimeSpan Duration { get; set; }
+        public TimeSpan Duration => EndDateTime.Subtract(StarDateTime);
 
-        public Reservation(RoomID roomId, DateTime starDateTime, DateTime endDateTime, string userName)
+        public Reservation()
         {
-            RoomId = roomId;
-            StarDateTime = starDateTime;
-            EndDateTime = endDateTime;
-            UserName = userName;
-            Duration = EndDateTime.Subtract(StarDateTime);
+            RoomId = new RoomID {FloorNumber = 0, RoomNumber = 0};
+            StarDateTime = DateTime.Now;
+            EndDateTime = DateTime.Now;
+            UserName = "";
         }
 
         public bool Conflicts(Reservation reservation)

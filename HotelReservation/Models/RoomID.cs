@@ -8,14 +8,14 @@ namespace HotelReservation.Models
 {
     public class RoomID
     {
-        
-        public int FloorNumber { get; }
-        public int RoomNumber { get; }
+        public int FloorNumber { get; set; }
+        public int RoomNumber { get; set; }
 
-        public RoomID(int floorNumber, int roomNumber)
+
+        public RoomID()
         {
-            FloorNumber = floorNumber;
-            RoomNumber = roomNumber;
+            FloorNumber = 0;
+            RoomNumber = 0;
         }
 
         public override string ToString()

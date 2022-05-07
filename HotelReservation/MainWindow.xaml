@@ -4,10 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelReservation"
-        xmlns:views="clr-namespace:HotelReservation.Views"
+        xmlns:views="clr-namespace:HotelReservation.Views" 
+        xmlns:viewModels="clr-namespace:HotelReservation.ViewModels"
+        d:DataContext="{d:DesignInstance Type=viewModels:MainViewModel}"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow"
         Title="Hotel Reservation System" Height="450" Width="800">
     <Grid>
-        <views:NewReservationView />
+        <views:NewReservationView DataContext="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>
